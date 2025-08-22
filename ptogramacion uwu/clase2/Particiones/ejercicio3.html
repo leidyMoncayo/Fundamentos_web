@@ -212,13 +212,25 @@
 <script>
     window.onload = function(){
         //codigo a ejecutar cuando la pagina web haya cargado
-    var imga1= 
-    {
-
+    var imga1= {
+    "src": "./imgs/ropa1.jpg",
+    "alt": "Imagen 1",
+    "width":"300"
     }
-       var img1 = '<img src="./imgs/ropa1.jpg" alt="Imagen 1" width="300">'
-       var img2 = '<img src="./imgs/ropa1.jpg" alt="Imagen 1" width="300">'
-       var img3 = '<img src="./imgs/ropa1.jpg" alt="Imagen 1" width="300">'
+     var imga2= {
+    "src": "./imgs/ropa1.jpg",
+    "alt": "Imagen 1",
+    "width":"300"
+    }
+     var imga3= {
+    "src": "./imgs/ropa1.jpg",
+    "alt": "Imagen 1",
+    "width":"300"
+    }
+    var img1 = '<img src="'+imaga1.src+'"alt="'+imaga1.alt+'" width="'+imaga1.width+'">'
+    var img2 = '<img src="'+imaga2.src+'"alt="'+imaga2.alt+'" width="'+imaga2.width+'">'
+    var img3 = '<img src="'+imaga3.src+'"alt="'+imaga3.alt+'" width="'+imaga3.width+'">'
+
     document.getElementById("img1").innerHTML= img1;
     document.getElementById("img2").innerHTML= img2;
     document.getElementById("img3").innerHTML= img3;
