@@ -9,5 +9,5 @@ const datosImagen = [
 ];
 
 function crearImagen(src, alt,width) { 
-    return `<img src="${src}" alt="${alt}" width="${width}">`;
+    return '<img src="${src}" alt="${alt}" width="${width}">';
 }

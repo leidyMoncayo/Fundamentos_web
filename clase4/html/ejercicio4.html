@@ -193,28 +193,14 @@
    </footer>
 </body>
 </html>
-
+<script src="../javaScript/ejercicio4.js"></script>
 <script>
+    
     window.onload=function(){
-        const titulo1='<h3>Ropa para Hombre</h3>';
-        const img1='<img src="./imgs/ropa1.jpg" alt="Ropa para Hombre" width="300xp">';
-        const link1='<a href="hombres.html">Ver más</a>';
-        let articulo1='<article class="categoria">'+ titulo1 +'<div id="img1">'+img1+'</div>'+ link1 +'  </article>';
-
-        const titulo2=' <h3>Ropa para Mujeres</h3>';
-        const img2='<img src="./imgs/ropa1.jpg" alt="Ropa para Mujer" width="300xp">';
-        const link2='<a href="mujeres.html">Ver más</a>';
-        let articulo2='<article class="categoria">'+ titulo2 +'<div id="img2">'+img2+'</div>'+ link2 +'  </article>';
-        
-        const titulo3='<h3>Accesorios</h3>';
-        const img3='<img src="./imgs/ropa1.jpg" alt="Ropa para Hombre" width="300xp">';
-        const link3=' <a href="accesorios.html">Ver más</a>';
-        let articulo3='<article class="categoria">'+ titulo3 +'<div id="img2">'+img3+'</div>'+ link3 +'  </article>';
-        
-        document.getElementById("categorias").innerHTML+=articulo1;
-        document.getElementById("categorias").innerHTML+=articulo2;
-        document.getElementById("categorias").innerHTML+=articulo3;
-
+    const contenedor = document.getElementById("categorias");
+    categorias.forEach(categoria => {
+    contenedor.innerHTML += crearArticulo(categoria);
+});
 
     }
    
