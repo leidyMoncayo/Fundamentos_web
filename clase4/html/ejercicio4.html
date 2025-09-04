@@ -4,7 +4,7 @@
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Tienda de Ropa Deportiva</title>
-   <link rel="stylesheet" href="../css/ejercicio3.css">
+   <link rel="stylesheet" href="../css/ejercicio4.css">
 </head>
 <body>
    <header>
@@ -69,9 +69,7 @@
        <section class="categorias-destacadas">
            <div class="container">
                <h2>Categorías Destacadas</h2>
-               <div class="grid-categorias" id="categorias">
-                   
-                   
+               <div class="grid-categorias" id="contenedor">
                 
                </div>
            </div>
@@ -80,35 +78,8 @@
        <section class="productos-destacados">
            <div class="container">
                <h2>Productos Destacados</h2>
-               <div class="grid-productos">
-                   <article class="producto">
-                       <h3 id="h3-1">Pack Tarjetas Regalos</h3>
-                       <div id="img4"></div>
-                       <p class="precio"  id="precio-1">$84.99</p>
-                       <a href="producto1.html">Ver detalles</a>
-                       <button>Añadir al carrito</button>
-                   </article>
-                   <article class="producto">
-                       <h3>Leggings de Yoga</h3>
-                       <div id="img5"></div>
-                       <p class="precio">$39.99</p>
-                       <a href="producto2.html">Ver detalles</a>
-                       <button>Añadir al carrito</button>
-                   </article>
-                   <article class="producto">
-                       <h3>Zapatillas Running</h3>
-                       <div id="img6"></div>
-                       <p class="precio" id="precio-3">$149.99</p>
-                       <a href="producto3.html">Ver detalles</a>
-                       <button>Añadir al carrito</button>
-                   </article>
-                   <article class="producto">
-                       <h3>Shorts Deportivos</h3>
-                       <div id="img7"></div>
-                       <p class="precio">$24.99</p>
-                       <a href="producto4.html">Ver detalles</a>
-                       <button>Añadir al carrito</button>
-                   </article>
+              <div class="grid-productos" id="productos-destacados"></div>
+              
                </div>
            </div>
        </section>
@@ -195,13 +166,18 @@
 </html>
 <script src="../javaScript/ejercicio4.js"></script>
 <script>
-    
+//categorias uwu    
     window.onload=function(){
-    const contenedor = document.getElementById("categorias");
-    categorias.forEach(categoria => {
-    contenedor.innerHTML += crearArticulo(categoria);
+   const contenedor = document.getElementById('contenedor');
+categorias.forEach(categoria => {
+  contenedor.innerHTML += crearArticulo(categoria);
 });
+//productos destacados uwu
+ const productosContenedor = document.getElementById('productos-destacados');
+  productosDestacados.forEach(producto => {
+    productosContenedor.innerHTML += crearProducto(producto);
+  });
 
-    }
-   
+};
+
 </script>
