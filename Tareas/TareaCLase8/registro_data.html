@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro Data </title>
+</head>
+<body>
+    <h1>Datos de Registro</h1>
+    <p> <strong> Nombre: </strong> <span id="nombre"></span></p>
+    <p> <strong> Apellido: </strong> <span id="apellido"></span></p>
+    <p> <strong> Telefono: </strong> <span id="telefono"></span></p>
+    <p> <strong> Comentarios Adicionales: </strong> <span id="comenentarios"></span></p>
+    <p> <strong> Fecha de nacimiento: </strong> <span id="fecha_nacimiento"></span></p>
+    <p> <strong> Pais: </strong> <span id="pais"></span></p>
+    <p> <strong> Género: </strong> <span id="genero"></span></p>
+    
+</body>
+</html>
+
+<script src="jquery.js"></script>
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    $('#nombre').text(urlParams.get('nombre'));
+    $('#apellido').text(urlParams.get('apellido'));
+    $('#password').text(urlParams.get('password'));
+    $('#telefono').text(urlParams.get('telefono'));
+    $('#comenentarios').text(urlParams.get('comenentarios'));
+    $('#fecha_nacimiento').text(urlParams.get('fecha_nacimiento'));
+    $('#pais').text(urlParams.get('pais'));
+    $('#genero').text(urlParams.get('genero'));
+</script>

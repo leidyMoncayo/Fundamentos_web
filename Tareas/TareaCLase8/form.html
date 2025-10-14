@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./from.css">
+    <title>formulario</title>
+
+</head>
+<body>
+    <div class="form-container">
+        <h1>Formulario Completo de Registro</h1>
+        <form action="#" method="post">
+            <!-- Información Personal -->
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" id="nombre" name="nombre" required>
+                </div>
+                <div class="form-group">
+                    <label for="apellido">Apellido:</label>
+                    <input type="text" id="apellido" name="apellido" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="telefono">Teléfono:</label>
+                    <input type="tel" id="telefono" name="telefono">
+                </div>
+
+                <div class="form-group">
+                    <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
+                    <input type="date" id="fecha_nacimiento" name="fecha_nacimiento">
+                </div>
+            </div>
+
+            <!-- Información Adicional -->
+
+
+            <!-- Selecciones -->
+            <div class="form-group">
+                <label for="pais">País:</label>
+                <select id="pais" name="pais" required>
+                    <option value="">Seleccionar país</option>
+                    <option value="argentina">Argentina</option>
+                    <option value="brasil">Brasil</option>
+                    <option value="chile">Chile</option>
+                    <option value="colombia">Colombia</option>
+                    <option value="ecuador">Ecuador</option>
+                    <option value="mexico">México</option>
+                    <option value="peru">Perú</option>
+                    <option value="venezuela">Venezuela</option>
+                    <option value="otro">Otro</option>
+                </select>
+            </div>
+
+
+            <!-- Radio Buttons -->
+            <div class="form-group">
+                <label>Género:</label>
+                <div class="radio-group">
+                    <div class="radio-item">
+                        <input type="radio" id="masculino" name="genero" value="masculino">
+                        <label for="masculino">Masculino</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="femenino" name="genero" value="femenino">
+                        <label for="femenino">Femenino</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="otro_genero" name="genero" value="otro">
+                        <label for="otro_genero">Otro</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="no_especificar" name="genero" value="no_especificar">
+                        <label for="no_especificar">Prefiero no especificar</label>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Áreas de texto -->
+
+            <div class="form-group">
+                <label for="comentarios">Comentarios Adicionales:</label>
+                <textarea id="comentarios" name="comentarios" placeholder="Cualquier información adicional que quieras compartir..."></textarea>
+            </div>
+
+                <button type="submit" class="submit-btn">Enviar Formulario</button>
+            </div>
+        </form>
+    </div>
+
+    <script src="jquery.js"></script>
+    <script>
+        const regex = {
+        nombre: /^[A-Za-zÀ-ÿ'´`¨^.\-\s]{2,60}$/,
+        apellido: /^[A-Za-zÀ-ÿ'´`¨^.\-\s]{2,60}$/,
+        telefono: /^\+?[0-9\s\-()]{7,20}$/,
+        comenentarios:  /^[A-Za-zÀ-ÿ0-9'´`¨^.,\-\s]{0,500}$/,
+    };
+    
+    $('form').on('submit', function(e) {
+        e.preventDefault(); // Evita el envío del formulario para validación
+
+        const nombre = $('#nombre').val();
+        const apellido = $('#apellido').val();
+        const telefono = $('#telefono').val();
+        const comentarios = $('#comentarios').val();
+        const fechaNacimiento = $('#fecha_nacimiento').val();
+        const pais = $('#pais').val();
+        const genero = $('input[name="genero"]:checked').val();//input[name="genero"]: selecciona todos los inputs tipo radio con el atributo name=genero
+                                                                //:checked selecciona el que está marcado
+                                                                // .val() obtiene el valor del input seleccionado
+ 
+         // Validaciones
+        if(nombre && !regex.nombre.test(nombre)) {
+            alert('El nombre solo debe contener letras y tener entre 2-60 caracteres.');
+            return;
+        }
+
+        if(apellido && !regex.apellido.test(apellido)) {
+            alert('El apellido solo debe contener letras y tener entre 2-60 caracteres.');
+            return;
+        }
+        if(telefono && !regex.telefono.test(telefono)) {
+            alert('El teléfono debe ser un número válido y puede incluir +, -, espacios o paréntesis.');
+            return;
+        }
+        if(comentarios && !regex.comenentarios.test(comentarios)) {
+            alert('Los comentarios solo deben contener letras y tener hasta 500 caracteres.');
+            return;
+        }
+        if (!fechaNacimiento) {
+            alert('Por favor, ingresa tu fecha de nacimiento.');
+            return;
+        }
+        if (!pais) {
+            alert('Por favor, selecciona un país.');
+            return;
+        }
+    
+        const queryString = `?nombre=${encodeURIComponent(nombre)}&apellido=${encodeURIComponent(apellido)}&telefono=${encodeURIComponent(telefono)}&comenentarios=${encodeURIComponent(comentarios)}&fecha_nacimiento=${encodeURIComponent(fechaNacimiento)}&pais=${encodeURIComponent(pais)}&genero=${encodeURIComponent(genero)}`;
+        window.location.href = "registro_data.html"+ queryString;
+    });
+    </script>
+</body>
+</html>
