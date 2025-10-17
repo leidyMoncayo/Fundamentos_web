@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/from.css">
+    <title>formulario</title>
+
+</head>
+
+<body>
+    <div class="form-container">
+        <h1>Formulario Completo de Registro</h1>
+        <form action=" ">
+            
+            <div class="form-row">
+                <input type="hidden" id="id">
+                <div class="form-group">
+                    <label for="titulo">Titulo:</label>
+                    <input type="text" id="title" name="title" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="precio">Precio:</label>
+                    <input type="text" id="price" name="price" required>
+                </div>
+            </div>
+
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="descripcion">Descripcion:</label>
+                    <textarea id="description" name="description" disabled></textarea>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="nombre">Categoria:</label>
+                    <input type="text" id="category" name="category" disabled>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="username">Imagen:</label>
+                    <img id="Image" src="" alt="Imagen del producto" style="max-width: 200px; margin-top: 10px;">
+                </div>
+            </div>
+
+
+            <button type="submit" id="enviar" class="submit-btn" disabled>Enviar Formulario</button>
+        </form>
+    </div>
+</body>
+
+</html>
+<script src="./js/jquery.js"></script>
+<script>
+
+    window.onload = async function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const producto = await getProducto(urlParams.get('id'));
+        $('#title').val(producto.title);
+        $('#price').val(producto.price);
+        $('#description').val(producto.description);
+        $('#category').val(producto.category);
+        $('#Image').attr('src', producto.image);
+        $('#id').val(producto.id);
+
+        window.__originalProducto = producto;
+        sessionStorage.setItem(`prd_${producto.id}_original`, JSON.stringify(producto));
+    }
+
+    // habilitar boton enviar cuando cambie el título
+    const campoNombre = document.getElementById("title");
+    campoNombre.addEventListener("change", function () {
+        document.getElementById("enviar").disabled = false;
+    });
+
+    // habilitar boton enviar cuando cambie el precio
+    const campoPrecio = document.getElementById("price");
+    campoPrecio.addEventListener("change", function () {
+        document.getElementById("enviar").disabled = false;
+    });
+
+      const regex = {
+        title: /^[A-Za-zÀ-ÿ0-9'´`¨^.\-()\[\],:;!¡?%&\s]{2,120}$/,
+        price: /^[0-9]+(\.[0-9]{1,2})?$/, // números con hasta 2 decimales
+        comenentarios: /^[A-Za-zÀ-ÿ0-9'´`¨^.,\-\s]{0,500}$/,
+    };
+
+    // handler unificado: título + precio
+    $('form').on('submit', async function (e) {
+        e.preventDefault();
+
+        const title = $('#title').val();
+        const price = $('#price').val();
+        const id = $('#id').val();
+
+        if (title && !regex.title.test(title)) {
+            alert('El título debe tener entre 2 y 120 caracteres y solo caracteres válidos.');
+            return;
+        }
+
+        if (price && !regex.price.test(price)) {
+            alert('El precio debe ser un número válido (hasta 2 decimales).');
+            return;
+        }
+
+        const original =
+            window.__originalProducto ||
+            JSON.parse(sessionStorage.getItem(`prd_${id}_original`) || '{}');
+
+        original.title = title;
+
+        const parsedPrice = parseFloat(price);
+        original.price = isNaN(parsedPrice) ? price : parsedPrice;
+
+        const result = await patchProducto(original);
+        if (result) alert('Actualización realizada');
+
+        window.location.href = 'tables-data.html';
+    });
+
+    async function getProducto(id) {
+        try {
+            const url = 'https://fakestoreapi.com/products/' + id;
+            const respuesta = await fetch(url);
+            const datos = await respuesta.json();
+            return datos;
+        } catch (error) {
+            console.error('Error al consumir la API:', error);
+        }
+    }
+
+    async function patchProducto(original) {
+        try {
+            const url = 'https://fakestoreapi.com/products/' + original.id;
+            const respuesta = await fetch(url, {
+                method: "PATCH",
+                body: JSON.stringify(original),
+                headers: { 'Content-Type': 'application/json' }
+            });
+            const datos = await respuesta.json();
+            return datos;
+        } catch (error) {
+            console.error('Error al consumir la API:', error);
+            return null;
+        }
+    }
+
+</script>
